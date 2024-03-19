@@ -1,22 +1,86 @@
 import { useState } from 'react'
 import giftCon from '../public/gift.svg'
+import Shelf from './Shelf'
+import Product from './Product'
+import Cart from './Cart'
+import Checkout from './Checkout'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [cartVisible, setCartVisible] = useState(false);
+  const [checkoutVisible, setCheckoutVisible] = useState(false);
+  const [cartItems, setCartItems] = useState([]);
+
+  // Function to add an item to the cart
+  const addToCart = (product, quantity ) => {
+    console.log('Adding to cart:', product, 'Quantity:', quantity);
+    const itemIndex = cartItems.findIndex(item => item.id === product.id);
+      if (itemIndex !== -1) {
+          // If item already exists in cart, update its quantity
+          const updatedCartItems = [...cartItems];
+          updatedCartItems[itemIndex].quantity += quantity;
+          setCartItems(updatedCartItems);
+    } else {
+        // If item doesn't exist in cart, add it with the specified quantity
+        setCartItems([...cartItems, { ...product, quantity }]);
+    }
+  };
+
+  const toggleCartVisibility = () => {
+      setCartVisible(!cartVisible);
+  };
+  
+  const toggleCheckoutVisibility = () => {
+    setCheckoutVisible(!checkoutVisible);
+    setCartVisible(false); // Hide cart when checking out
+  };
+      
+  const clearCart = () => {
+    setCartItems([]);
+  };
+
+  const totalItemsInCart = cartItems.reduce((total, item) => total + item.quantity, 0);
 
   return (
     <>
-      <nav className="navBar">
-
-      </nav>
-      <h1>Storefront</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          Served: {count}
-        </button>
+      <h1>Your Storefront</h1>
+      <p>A great place to shop.</p>
+      <div className="platform">
+        {checkoutVisible && <Checkout cartItems={cartItems} clearCart={clearCart} />}
+        <div className="menu">
+          <button className='viewCart' onClick={toggleCartVisibility}>
+          {cartVisible ? 'Close Bag' : `Bag (${totalItemsInCart})`}
+          </button>
+          <button className='checkOut' onClick={toggleCheckoutVisibility}>
+            {checkoutVisible ? 'Keep Shopping' : 'Check Out'}
+          </button>
+        </div>
+        {!checkoutVisible && !cartVisible && (
+          <div className='shelfDiv'>
+            <Shelf addToCart={addToCart} />
+          </div>
+        )}
+        {cartVisible && (
+          <div className="cartOverlay">
+            <Cart cartItems={cartItems} setCartItems={setCartItems} />
+          </div>
+        )}
       </div>
-      <a href="https://cursebreakers.net">Cursebreakers LLC</a>
+      {!checkoutVisible && (
+          <div className="menu">
+            <button className='viewCart' onClick={toggleCartVisibility}>
+            {cartVisible ? 'Close Bag' : `Bag (${totalItemsInCart})`}
+            </button>
+            <button className='checkOut' onClick={toggleCheckoutVisibility}>
+              {checkoutVisible ? 'Keep Shopping' : 'Check Out'}
+            </button>
+          </div>
+        )}
+        <div className="footer">
+          <h3>Like what you see?</h3>
+          <p>Get a quote from:</p>
+          <a className="footLink" href="">Cursebreakers LLC</a>
+        </div>
     </>
   )
 }
