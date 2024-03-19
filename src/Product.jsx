@@ -43,8 +43,8 @@ function Product({ product, addToCart }) {
                 </div>  
             )}
             <div className="cartControls">
+                <h3>{quantity}</h3>
                 <button onClick={handleDecrement}>-</button>
-                <span>{quantity}</span>
                 <button onClick={handleIncrement}>+</button>
                 <button onClick={handleAddToCart}>Add to Cart</button>
             </div>

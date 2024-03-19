@@ -77,9 +77,10 @@ function App() {
           </div>
         )}
         <div className="footer">
-          <h3>Like what you see?</h3>
-          <p>Get a quote from:</p>
-          <a className="footLink" href="">Cursebreakers LLC</a>
+          <h3>Readme:</h3>
+          <a className="footLink" href="https://github.com/cursebreakers/shopping-cart#react-shopping-cart">View on GitHub</a>
+          <p>Get a quote:</p>
+          <a className="footLink" href="https://cursebreakers.net">Cursebreakers LLC</a>
         </div>
     </>
   )
