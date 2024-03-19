@@ -6,5 +6,5 @@
 
 ## Assignment:
 
-### [React Shopping Cart](https://www.theodinproject.com/lessons/node-path-react-new-shopping-cart) from [The Odin Project - Full-stack JavaScript](https://www.theodinproject.com/paths/full-stack-javascript)
+### [React Shopping Cart](https://www.theodinproject.com/lessons/node-path-react-new-shopping-cart) from [The Odin Project - Full Stack JavaScript](https://www.theodinproject.com/paths/full-stack-javascript)
 
